@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tic;
 using UnityEngine;
 
 public class ClickableTile : MonoBehaviour
 {
+    public Action<int, int> onTileSelected;
+
     public void Init(int x, int y)
     {
         this.x = x;
@@ -15,6 +19,10 @@ public class ClickableTile : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"Clicked tile: ${x}, ${y}");
+        if(onTileSelected != null)
+        {
+            onTileSelected(x, y);
+        }
     }
 
 }

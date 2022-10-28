@@ -5,25 +5,27 @@ using UnityEngine;
 
 namespace Tic
 {
-public class Board : MonoBehaviour
-{
-    public int boardWidth, boardHeight;
-    public ClickableTile[] clickableTiles;
-    public GameObject clickableTilePrefab;
-
-    private void Awake()
+    public class Board : MonoBehaviour
     {
-        for (int x = 0; x < boardWidth; x++)
+        public int boardWidth, boardHeight;
+        public ClickableTile[,] clickableTiles;
+        public Piece[,] pieces;
+        public GameObject clickableTilePrefab;
+
+        private void Awake()
         {
-            for (int y = 0; y < boardHeight; y++)
+            Assert.IsNotNull(clickableTilePrefab);
+            clickableTiles = new ClickableTile[boardWidth, boardHeight];
+            pieces = new Piece[boardWidth, boardHeight];
+            for (int x = 0; x < boardWidth; x++)
             {
-                Debug.Log(x);
-                Debug.Log(y);
-                Assert.IsNotNull(clickableTilePrefab);
-                ClickableTile newTile = Instantiate(clickableTilePrefab).GetComponent<ClickableTile>();
-                newTile.Init(x, y);
+                for (int y = 0; y < boardHeight; y++)
+                {
+                    ClickableTile newTile = Instantiate(clickableTilePrefab).GetComponent<ClickableTile>();
+                    newTile.Init(x, y);
+                    clickableTiles[x, y] = newTile;
+                }
             }
         }
     }
-}
 }
